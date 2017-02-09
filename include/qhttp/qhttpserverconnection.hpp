@@ -45,6 +45,11 @@ public:
     /** returns connected socket if the backend() == ETcpSocket. */
     QTcpSocket* tcpSocket() const;
 
+    /** returns connected socket if the backend() == ETcpSocket,
+     *  passing ownershop to the caller. This QHttpObjects then acts
+     *  as if the underlying socket has disconnected. */
+    QTcpSocket* detachTcpSocket();
+
     /** returns connected socket if the backend() == ELocalSocket. */
     QLocalSocket* localSocket() const;
 

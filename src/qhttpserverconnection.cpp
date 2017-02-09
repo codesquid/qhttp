@@ -40,6 +40,20 @@ QHttpConnection::tcpSocket() const {
     return d_func()->isocket.itcpSocket;
 }
 
+QTcpSocket*
+QHttpConnection::detachTcpSocket() {
+	QTcpSocket* tcp = d_func()->isocket.itcpSocket;
+	if (tcp) {
+		disconnect(tcp, 0, 0, 0);
+		tcp->setParent(0);
+		d_func()->isocket.itcpSocket = 0;
+	}
+	emit disconnected();
+
+	return tcp;
+}
+
+
 QLocalSocket*
 QHttpConnection::localSocket() const {
     return d_func()->isocket.ilocalSocket;
