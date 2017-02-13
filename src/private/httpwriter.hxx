@@ -76,8 +76,11 @@ public:
         if ( ifinished    ||    iheaderWritten )
             return;
 
-        if ( TBase::iheaders.keyHasValue("connection", "keep-alive") )
+        if ( TBase::iheaders.keyHasValue("connection", "keep-alive") ||
+             TBase::iheaders.keyHasValue("connection", "upgrade") )
+	{
             ikeepAlive = true;
+	}
         else
             TBase::iheaders.insert("connection", "close");
 
